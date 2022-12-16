@@ -1,7 +1,12 @@
 package br.com.cruzvita.projetopermissoes.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
@@ -14,9 +19,17 @@ public class RoleService {
 	@Autowired
 	private RoleRepository repository;
 	
-	
-	  @Autowired private ModelMapper modelMapper;
+	@Autowired 
+	private ModelMapper modelMapper;
 	 
+	  public ResponseEntity<List<RoleDTO>>obterTodasRoles(){
+		  List<Role> roles = repository.findAll();
+		  List<RoleDTO> dto = roles.stream()
+				  .map(user -> modelMapper.map(user, RoleDTO.class))
+				  .collect(Collectors
+				  .toList());
+		  return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
+	  }
 	
 	public Role buscaRolesId(Long id) {
 		return repository.findById(id).orElseThrow();
@@ -35,7 +48,8 @@ public class RoleService {
 		return role;
 	}
 	
-	public void deletarPessoa(Long id) {
+	public ResponseEntity<Long> deletarPessoa(Long id) {
 		repository.deleteById(id);
+		return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
 	}
 }
