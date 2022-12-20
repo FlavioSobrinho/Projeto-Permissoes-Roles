@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
@@ -37,18 +35,18 @@ public class RoleController {
 		return role;
 	}
 	
-	@PostMapping("/cadastrarpessoa")
+	@PostMapping("/cadastrarrole")
 	public RoleDTO cadastrarRole(@RequestBody RoleDTO dto){
 		return service.cadastrarPessoa(dto);
 	}
 	
-	@PutMapping("/atualizarpessoa/{id}")
+	@PutMapping("/atualizarrole/{id}")
 	public Role editarRole(@RequestBody RoleDTO dto, @PathVariable Long id){
 		return service.editarRole(dto, id);
 		
 	}
 	
-	@DeleteMapping("/deletarrole")
+	@DeleteMapping("/deletarrole/{id}")
 	public ResponseEntity<Long>deletarRole(@PathVariable Long id){
 		return service.deletarPessoa(id);
 	}
