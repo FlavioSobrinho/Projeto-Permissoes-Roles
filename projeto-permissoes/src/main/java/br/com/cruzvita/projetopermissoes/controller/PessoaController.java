@@ -29,19 +29,19 @@ public class PessoaController {
 		return service.obterTodasPessoas();
 	}
 	
-	@GetMapping("/listarpornome")
-	public ResponseEntity<Pessoa> obterPessoaPeloNome(String nome){
+	@GetMapping("/listar/{nome}")
+	public ResponseEntity<Pessoa> obterPessoaPeloNome(@PathVariable String nome){
 		return service.buscarPessoaPeloNome(nome);
 	}
-	@PostMapping("/cadastrarpessoa")
+	@PostMapping("/cadastrar")
 	public ResponseEntity<String>cadastrarPessoa(@RequestBody PessoaDTO pessoa){
 		return service.cadastrarPessoa(pessoa);
 	}
-	@PutMapping("/atualizarpessoa/{id}")
+	@PutMapping("/atualizar/{id}")
 	public ResponseEntity<String>editarPessoa(@RequestBody PessoaDTO pessoa, @PathVariable Long id ) throws Exception{
 		return service.editarPessoaPassandoId(pessoa, id);
 	}
-	@DeleteMapping("/deletar")
+	@DeleteMapping("/deletar{id}")
 	public ResponseEntity<Long>deletarPessoa(@PathVariable Long id){
 		return service.deletarPessoaPassandoId(id);
 	}

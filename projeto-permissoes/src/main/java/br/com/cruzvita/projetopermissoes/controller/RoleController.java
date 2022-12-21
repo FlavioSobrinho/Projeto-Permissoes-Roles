@@ -24,29 +24,29 @@ public class RoleController {
 	@Autowired
 	private RoleService service;
 	
-	@GetMapping("/listarroles")
+	@GetMapping("/listar")
 	public ResponseEntity<List<RoleDTO>>obterTodasRoles(){
 		return service.obterTodasRoles();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/buscar/{id}")
 	public Role buscaRolePorId(@PathVariable Long id) {
 		Role role = service.buscaRolesId(id);
 		return role;
 	}
 	
-	@PostMapping("/cadastrarrole")
+	@PostMapping("/cadastrar")
 	public RoleDTO cadastrarRole(@RequestBody RoleDTO dto){
 		return service.cadastrarPessoa(dto);
 	}
 	
-	@PutMapping("/atualizarrole/{id}")
+	@PutMapping("/atualizar/{id}")
 	public Role editarRole(@RequestBody RoleDTO dto, @PathVariable Long id){
 		return service.editarRole(dto, id);
 		
 	}
 	
-	@DeleteMapping("/deletarrole/{id}")
+	@DeleteMapping("/deletar/{id}")
 	public ResponseEntity<Long>deletarRole(@PathVariable Long id){
 		return service.deletarPessoa(id);
 	}

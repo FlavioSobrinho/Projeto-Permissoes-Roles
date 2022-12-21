@@ -11,17 +11,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "Pessoas")
-public class Pessoa {
+@Table(name = "PessoasRoles")
+public class PessoaRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
-	
-	private StatusDoCadastro statusDoCadastro;
 }
