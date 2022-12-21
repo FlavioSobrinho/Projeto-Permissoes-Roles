@@ -35,7 +35,7 @@ public class RoleService {
 		return repository.findById(id).orElseThrow();
 	}
 	
-	public RoleDTO cadastrarPessoa(RoleDTO dto) {
+	public RoleDTO cadastrarRole(RoleDTO dto) {
 		Role role = modelMapper.map(dto, Role.class);
 		repository.save(role);
 		return dto;

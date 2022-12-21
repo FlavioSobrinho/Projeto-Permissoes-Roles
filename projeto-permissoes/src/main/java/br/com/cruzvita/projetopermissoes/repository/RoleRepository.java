@@ -11,5 +11,7 @@ import br.com.cruzvita.projetopermissoes.model.Role;
 public interface RoleRepository extends JpaRepository<Role, Long>{
 	Role findByNome(String nome);
 	
+	Role findByIdPessoa(Long idPessoa);
+	
 	Optional<Role> findById(Long id);
 }

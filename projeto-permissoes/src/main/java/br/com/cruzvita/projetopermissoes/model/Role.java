@@ -22,6 +22,9 @@ public class Role {
 	private Long id;
 	
 	private String nome;
+	
+	private Long idPessoa;
+	
 		
-	private String descricoe;
+	private String descricao;
 }

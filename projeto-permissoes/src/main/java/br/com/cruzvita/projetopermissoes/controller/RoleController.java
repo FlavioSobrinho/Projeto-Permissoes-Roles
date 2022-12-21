@@ -37,7 +37,7 @@ public class RoleController {
 	
 	@PostMapping("/cadastrar")
 	public RoleDTO cadastrarRole(@RequestBody RoleDTO dto){
-		return service.cadastrarPessoa(dto);
+		return service.cadastrarRole(dto);
 	}
 	
 	@PutMapping("/atualizar/{id}")

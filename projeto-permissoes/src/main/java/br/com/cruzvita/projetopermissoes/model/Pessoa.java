@@ -23,5 +23,11 @@ public class Pessoa {
 	
 	private String nome;
 	
+	private String senha;
+	
 	private StatusDoCadastro statusDoCadastro;
+	
+	/*
+	 * @ManyToMany private List<Role> roles;
+	 */
 }
