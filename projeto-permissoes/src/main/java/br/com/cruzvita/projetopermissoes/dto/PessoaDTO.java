@@ -1,6 +1,6 @@
 package br.com.cruzvita.projetopermissoes.dto;
 
-import br.com.cruzvita.projetopermissoes.model.StatusDoCadastro;
+import br.com.cruzvita.projetopermissoes.enums.StatusDoCadastro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PessoaDTO {
 
-	private String id;
 	private String nome;
+	private String cargo;
 	private StatusDoCadastro statusDoCadastro;
 	
 }

@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 import br.com.cruzvita.projetopermissoes.model.Role;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>{
-	Role findByNome(String nome);
+public interface RoleRepository extends JpaRepository<Role, Integer>{
+	Role findRoleByNome(String nome);
 	
-	Role findByIdPessoa(Long idPessoa);
-	
-	Optional<Role> findById(Long id);
+	Optional<Role> findRoleById(Integer id);
 }

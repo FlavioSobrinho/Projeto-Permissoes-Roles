@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
 public class RoleService {
 
 	@Autowired
 	private RoleRepository repository;
-	
-	@Autowired 
+	@Autowired
 	private ModelMapper modelMapper;
 	 
 	  public ResponseEntity<List<RoleDTO>>obterTodasRoles(){
@@ -31,7 +31,7 @@ public class RoleService {
 		  return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
 	  }
 	
-	public Role buscaRolesId(Long id) {
+	public Role buscaRolesId(Integer id) {
 		return repository.findById(id).orElseThrow();
 	}
 	
@@ -41,14 +41,14 @@ public class RoleService {
 		return dto;
 	}
 	
-	public Role editarRole(RoleDTO dto, Long id) {
+	public Role editarRole(RoleDTO dto, Integer id) {
 		Role role = modelMapper.map(id, Role.class);
 		role.setId(dto.getId());
 		
 		return role;
 	}
 	
-	public ResponseEntity<Long> deletarPessoa(Long id) {
+	public ResponseEntity<Integer> deletarPessoa(Integer id) {
 		repository.deleteById(id);
 		return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
 	}

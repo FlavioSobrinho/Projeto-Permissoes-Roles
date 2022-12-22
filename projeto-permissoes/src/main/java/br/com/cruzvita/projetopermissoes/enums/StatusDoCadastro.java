@@ -1,4 +1,4 @@
-package br.com.cruzvita.projetopermissoes.model;
+package br.com.cruzvita.projetopermissoes.enums;
 
 public enum StatusDoCadastro {
 

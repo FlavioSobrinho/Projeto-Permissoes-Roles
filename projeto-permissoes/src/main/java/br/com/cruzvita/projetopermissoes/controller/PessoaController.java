@@ -38,11 +38,11 @@ public class PessoaController {
 		return service.cadastrarPessoa(pessoa);
 	}
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<String>editarPessoa(@RequestBody PessoaDTO pessoa, @PathVariable Long id ) throws Exception{
+	public ResponseEntity<String>editarPessoa(@RequestBody PessoaDTO pessoa, @PathVariable Integer id ) throws Exception{
 		return service.editarPessoaPassandoId(pessoa, id);
 	}
 	@DeleteMapping("/deletar{id}")
-	public ResponseEntity<Long>deletarPessoa(@PathVariable Long id){
+	public ResponseEntity<Integer>deletarPessoa(@PathVariable Integer id){
 		return service.deletarPessoaPassandoId(id);
 	}
 }

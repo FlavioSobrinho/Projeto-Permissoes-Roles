@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.service.RoleService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/roles")
@@ -30,7 +31,7 @@ public class RoleController {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Role buscaRolePorId(@PathVariable Long id) {
+	public Role buscaRolePorId(@PathVariable Integer id) {
 		Role role = service.buscaRolesId(id);
 		return role;
 	}
@@ -41,13 +42,13 @@ public class RoleController {
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public Role editarRole(@RequestBody RoleDTO dto, @PathVariable Long id){
+	public Role editarRole(@RequestBody RoleDTO dto, @PathVariable Integer id){
 		return service.editarRole(dto, id);
 		
 	}
 	
 	@DeleteMapping("/deletar/{id}")
-	public ResponseEntity<Long>deletarRole(@PathVariable Long id){
+	public ResponseEntity<Integer>deletarRole(@PathVariable Integer id){
 		return service.deletarPessoa(id);
 	}
 }

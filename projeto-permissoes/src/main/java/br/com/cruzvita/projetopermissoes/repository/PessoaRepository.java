@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import br.com.cruzvita.projetopermissoes.model.Pessoa;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
-
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{
+	
 	Pessoa findByNome(String nome);
 	
-	Optional<Pessoa> findById(Long id);
+	Optional<Pessoa> findById(Integer id);
 	
 }
