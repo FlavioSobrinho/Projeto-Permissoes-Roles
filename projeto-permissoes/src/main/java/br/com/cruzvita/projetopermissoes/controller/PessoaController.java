@@ -28,7 +28,6 @@ public class PessoaController {
 	public ResponseEntity<List<PessoaDTO>> obterTodasPessoas(){
 		return service.obterTodasPessoas();
 	}
-	
 	@GetMapping("/listar/{nome}")
 	public ResponseEntity<Pessoa> obterPessoaPeloNome(@PathVariable String nome){
 		return service.buscarPessoaPeloNome(nome);

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
 
 @Service
 public class RoleService {

@@ -42,7 +42,6 @@ public class PessoaService {
 	public ResponseEntity<String> cadastrarPessoa(PessoaDTO dto){
 		Pessoa pessoa = modelMapper.map(dto, Pessoa.class);
 		pessoa.setStatusDoCadastro(StatusDoCadastro.CADASTRO_ATIVO);
-		//pessoaRoleRepository.inserirPessoaRole(pessoa.getId());
 		pessoaRepository.save(pessoa);
 		
 		return new ResponseEntity<String>("Cadastro Conluido.", HttpStatus.CREATED);

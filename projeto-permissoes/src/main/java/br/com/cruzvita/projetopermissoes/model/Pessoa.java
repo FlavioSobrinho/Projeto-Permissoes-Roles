@@ -6,6 +6,8 @@ import java.util.List;
 import br.com.cruzvita.projetopermissoes.enums.StatusDoCadastro;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Pessoa {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column (name = "nome")
@@ -37,5 +39,6 @@ public class Pessoa {
 			joinColumns = @JoinColumn(name= "pessoa_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
+	
 	
 }

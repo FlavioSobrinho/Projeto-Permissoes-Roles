@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.service.RoleService;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/roles")
