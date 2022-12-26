@@ -36,6 +36,7 @@ public class PessoaController {
 	public ResponseEntity<String>cadastrarPessoa(@RequestBody PessoaDTO pessoa){
 		return service.cadastrarPessoa(pessoa);
 	}
+	
 	@PutMapping("/atualizar/{id}")
 	public ResponseEntity<String>editarPessoa(@RequestBody PessoaDTO pessoa, @PathVariable Integer id ) throws Exception{
 		return service.editarPessoaPassandoId(pessoa, id);

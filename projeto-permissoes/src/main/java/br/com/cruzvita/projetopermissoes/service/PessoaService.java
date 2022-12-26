@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.cruzvita.projetopermissoes.dto.PessoaDTO;
-import br.com.cruzvita.projetopermissoes.enums.StatusDoCadastro;
 import br.com.cruzvita.projetopermissoes.model.Pessoa;
+import br.com.cruzvita.projetopermissoes.model.PessoaRole;
+import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.repository.PessoaRepository;
+import br.com.cruzvita.projetopermissoes.repository.PessoaRoleRepository;
+import br.com.cruzvita.projetopermissoes.repository.RoleRepository;
 
 @Service("userDetailsService")
 public class PessoaService {
@@ -25,12 +28,19 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 	
 	@Autowired
+	private PessoaRoleRepository pessoaRoleRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
 	private ModelMapper modelMapper;
-
+	
 		
 	//RETORNA TODAS PESSOAS DA LISTA PESSOA
 	public ResponseEntity<List<PessoaDTO>> obterTodasPessoas(){
-		List<Pessoa> pessoas = pessoaRepository.findAll(); 
+		List<Pessoa> pessoas = pessoaRepository.findAll();
+		List<Role> roles = roleRepository.findAll();
 		List<PessoaDTO> dto = pessoas.stream()
 				.map(user -> modelMapper.map(user, PessoaDTO.class))
 				.collect(Collectors.toList());
@@ -41,9 +51,11 @@ public class PessoaService {
 	//CADASTRA UMA NOVA PESSOA NA TABELA
 	public ResponseEntity<String> cadastrarPessoa(PessoaDTO dto){
 		Pessoa pessoa = modelMapper.map(dto, Pessoa.class);
-		pessoa.setStatusDoCadastro(StatusDoCadastro.CADASTRO_ATIVO);
 		pessoaRepository.save(pessoa);
-		
+		PessoaRole pessoaRole = new PessoaRole();
+		pessoaRole.setPessoaId(pessoa.getId());
+		pessoaRole.setRoleId(1);
+		pessoaRoleRepository.save(pessoaRole);
 		return new ResponseEntity<String>("Cadastro Conluido.", HttpStatus.CREATED);
 	}
 	

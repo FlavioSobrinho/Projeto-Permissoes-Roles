@@ -42,7 +42,7 @@ public class RoleService {
 	
 	public Role editarRole(RoleDTO dto, Integer id) {
 		Role role = modelMapper.map(id, Role.class);
-		role.setId(dto.getId());
+		/* role.setId(dto); */
 		
 		return role;
 	}

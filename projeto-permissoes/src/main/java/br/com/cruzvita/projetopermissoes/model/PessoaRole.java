@@ -1,6 +1,5 @@
 package br.com.cruzvita.projetopermissoes.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,14 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Pessoas")
-public class Pessoa {
+@Table(name = "pessoa_role")
+public class PessoaRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column (name = "nome")
-	private String nome;
+	@Column(name = "pessoa_id")
+	private Integer pessoaId;
+	
+	@Column(name = "role_id")
+	private Integer roleId;
 	
 }
