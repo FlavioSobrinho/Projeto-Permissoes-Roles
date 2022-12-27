@@ -34,6 +34,10 @@ public class RoleController {
 		Role role = service.buscaRolesId(id);
 		return role;
 	}
+	@PostMapping("/cadastrarrole/{id}")
+	public ResponseEntity<String> cadastrarRolePessoa(@RequestBody List<Integer> role, @PathVariable Integer id) {
+		return service.inclusaoRolePessoa(role, id);
+	}
 	
 	@PostMapping("/cadastrar")
 	public RoleDTO cadastrarRole(@RequestBody RoleDTO dto){

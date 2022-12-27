@@ -24,9 +24,6 @@ public class ProdutoService {
 	private ProdutoRepository produtoRepository;
 	
 	@Autowired
-	private ProdutoService produtoService;
-	
-	@Autowired
 	private ModelMapper modelMapper;
 
 	public ResponseEntity<List<ProdutoDTO>> todosProdutos() {
@@ -41,16 +38,8 @@ public class ProdutoService {
 		return new ResponseEntity<>(prodDTO, HttpStatus.ACCEPTED);
 	}
 	
-	public ResponseEntity<String> cadastraProduto(ProdutoDTO prodDTO){
-		
-		Produto produto = modelMapper.map(prodDTO, Produto.class);
-		produtoRepository.save(produto);
-		produtoService.cadastraProduto(produto);
-		
-		return new ResponseEntity<String>(HttpStatus.CREATED);
-	}
 	
-	public ResponseEntity<Produto> buscarPeloNome(String nome){
+	public ResponseEntity<Produto> buscaProdutoPeloNome(String nome){
 		return new ResponseEntity<>(produtoRepository.
 				findByNome(nome), HttpStatus.ACCEPTED);
 	}
@@ -60,7 +49,13 @@ public class ProdutoService {
 		return produto;
 	}
 	
-	public ResponseEntity<String> editarProdutoId(@RequestBody ProdutoDTO prodDTO, @PathVariable Integer id) throws InstanceNotFoundException{
+	public ResponseEntity<String> cadastraProduto(ProdutoDTO prodDTO) {
+		Produto produto = modelMapper.map(prodDTO, Produto.class);
+		produtoRepository.save(produto);
+		return new ResponseEntity<String>("Cadastro de Produto Cncluido",HttpStatus.ACCEPTED);
+	}
+	
+	public ResponseEntity<String> editarProduto(@RequestBody ProdutoDTO prodDTO, @PathVariable Integer id) throws InstanceNotFoundException{
 		Produto produto = produtoRepository.findById(id).orElseThrow(() -> new InstanceNotFoundException());
 		produto = modelMapper.map(prodDTO, Produto.class);
 		produto.setId(id);
@@ -69,7 +64,7 @@ public class ProdutoService {
 		return new ResponseEntity<>("Modificação feita com sucesso", HttpStatus.CREATED);
 	}
 	
-	public ResponseEntity<Integer> deletaProduto(Integer id){
+	public ResponseEntity<Integer> deletarProdutoPassandoId(Integer id){
 		produtoRepository.deleteById(id);
 		return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
 	}

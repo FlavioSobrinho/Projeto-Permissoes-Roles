@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.cruzvita.projetopermissoes.dto.ProdutoDTO;
 import br.com.cruzvita.projetopermissoes.model.Produto;
 import br.com.cruzvita.projetopermissoes.service.ProdutoService;
-import lombok.Delegate;
 
 @Controller
 @RequestMapping("/produtos")
@@ -29,18 +29,18 @@ public class ProdutoController {
 		return produtoService.todosProdutos();
 	}
 	@GetMapping("/listar/{nome}")
-	public ResponseEntity<Produto> buscaProdutoPeloId (@PathVariable String id){
-		return produtoService.buscaPeloId(id);
+	public ResponseEntity<Produto> buscaProdutoPeloNome (@PathVariable String nome){
+		return produtoService.buscaProdutoPeloNome(nome);
 	}
 	@PostMapping("/cadastrar")
-	public ResponseEntity<String> cadastrarProduto(@RequestBody ProdutoDTO produto){
+	public ResponseEntity<String> cadastraProduto(@RequestBody ProdutoDTO produto){
 		return produtoService.cadastraProduto(produto);
 	}
 	@PutMapping("/atualizar/{id}")
 	public ResponseEntity<String> editarPessoa(@RequestBody ProdutoDTO produto, @PathVariable Integer id)throws Exception {
-		return produtoService.editarProdutoPassandoId(produto, id);
+		return produtoService.editarProduto(produto, id);
 	}
-	@Delegate("/deletar/{id}")
+	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Integer> deletarProduto(@PathVariable Integer id){
 		return produtoService.deletarProdutoPassandoId(id);
 	}

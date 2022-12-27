@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.com.cruzvita.projetopermissoes.dto.PessoaRoleDTO;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Pessoa;
 import br.com.cruzvita.projetopermissoes.model.PessoaRole;
@@ -65,4 +66,17 @@ public class RoleService {
 		pessoaRoleRepository.save(pessoaRole);
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
+	public ResponseEntity<String> inclusaoRolePessoa(List<Integer> role, Integer id){
+		
+		for (Integer roles : role){
+			PessoaRoleDTO pessoaRoleDTO = new PessoaRoleDTO(id, roles);
+			PessoaRole pessoa = modelMapper.map(pessoaRoleDTO, PessoaRole.class);
+			pessoaRoleRepository.save(pessoa);
+			
+			
+	}
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("Inclusão de Role foi Feita");
+	}
+
 }
