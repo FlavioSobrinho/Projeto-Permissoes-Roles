@@ -15,23 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.cruzvita.projetopermissoes.dto.PessoaDTO;
 import br.com.cruzvita.projetopermissoes.model.Pessoa;
-import br.com.cruzvita.projetopermissoes.model.PessoaRole;
-import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.repository.PessoaRepository;
-import br.com.cruzvita.projetopermissoes.repository.PessoaRoleRepository;
-import br.com.cruzvita.projetopermissoes.repository.RoleRepository;
 
 @Service("userDetailsService")
 public class PessoaService {
+	
+	
+	@Autowired
+	private RoleService roleService;
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
-	@Autowired
-	private PessoaRoleRepository pessoaRoleRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -39,8 +34,8 @@ public class PessoaService {
 		
 	//RETORNA TODAS PESSOAS DA LISTA PESSOA
 	public ResponseEntity<List<PessoaDTO>> obterTodasPessoas(){
+		
 		List<Pessoa> pessoas = pessoaRepository.findAll();
-		List<Role> roles = roleRepository.findAll();
 		List<PessoaDTO> dto = pessoas.stream()
 				.map(user -> modelMapper.map(user, PessoaDTO.class))
 				.collect(Collectors.toList());
@@ -52,11 +47,8 @@ public class PessoaService {
 	public ResponseEntity<String> cadastrarPessoa(PessoaDTO dto){
 		Pessoa pessoa = modelMapper.map(dto, Pessoa.class);
 		pessoaRepository.save(pessoa);
-		PessoaRole pessoaRole = new PessoaRole();
-		pessoaRole.setPessoaId(pessoa.getId());
-		pessoaRole.setRoleId(1);
-		pessoaRoleRepository.save(pessoaRole);
-		return new ResponseEntity<String>("Cadastro Conluido.", HttpStatus.CREATED);
+		roleService.cadastraRolePessoa(pessoa);
+		return new ResponseEntity<String>( HttpStatus.CREATED);
 	}
 	
 	public ResponseEntity<Pessoa> buscarPessoaPeloNome(String nome){

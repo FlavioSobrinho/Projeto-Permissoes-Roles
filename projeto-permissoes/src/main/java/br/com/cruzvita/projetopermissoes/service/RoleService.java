@@ -10,12 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
+import br.com.cruzvita.projetopermissoes.model.Pessoa;
+import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.model.Role;
+import br.com.cruzvita.projetopermissoes.repository.PessoaRoleRepository;
 import br.com.cruzvita.projetopermissoes.repository.RoleRepository;
 
 @Service
 public class RoleService {
 
+	@Autowired
+	private PessoaRoleRepository pessoaRoleRepository;
+	
 	@Autowired
 	private RoleRepository repository;
 	@Autowired
@@ -40,9 +46,9 @@ public class RoleService {
 		return dto;
 	}
 	
+	
 	public Role editarRole(RoleDTO dto, Integer id) {
 		Role role = modelMapper.map(id, Role.class);
-		/* role.setId(dto); */
 		
 		return role;
 	}
@@ -50,5 +56,13 @@ public class RoleService {
 	public ResponseEntity<Integer> deletarPessoa(Integer id) {
 		repository.deleteById(id);
 		return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
+	}
+	
+	public ResponseEntity<String> cadastraRolePessoa(Pessoa pessoa){
+		PessoaRole pessoaRole = new PessoaRole();
+		pessoaRole.setRoleId(2);
+		pessoaRole.setPessoaId(pessoa.getId());
+		pessoaRoleRepository.save(pessoaRole);
+		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 }
