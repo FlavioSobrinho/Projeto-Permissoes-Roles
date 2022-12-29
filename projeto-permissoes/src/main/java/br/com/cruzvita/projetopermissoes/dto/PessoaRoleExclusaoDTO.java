@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PessoaRoleDTO {
+public class PessoaRoleExclusaoDTO {
 
-	private Integer pessoaId;
-	
-	private Integer roleId; 
+	private Integer role; 
 	
 }

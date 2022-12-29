@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cruzvita.projetopermissoes.dto.PessoaRoleExclusaoDTO;
+import br.com.cruzvita.projetopermissoes.dto.PessoaRolesDTO;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.service.RoleService;
@@ -34,10 +36,6 @@ public class RoleController {
 		Role role = service.buscaRolesId(id);
 		return role;
 	}
-	@PostMapping("/cadastrarrole/{id}")
-	public ResponseEntity<String> cadastrarRolePessoa(@RequestBody List<Integer> role, @PathVariable Integer id) {
-		return service.inclusaoRolePessoa(role, id);
-	}
 	
 	@PostMapping("/cadastrar")
 	public RoleDTO cadastrarRole(@RequestBody RoleDTO dto){
@@ -47,11 +45,21 @@ public class RoleController {
 	@PutMapping("/atualizar/{id}")
 	public Role editarRole(@RequestBody RoleDTO dto, @PathVariable Integer id){
 		return service.editarRole(dto, id);
-		
 	}
 	
 	@DeleteMapping("/deletar/{id}")
 	public ResponseEntity<Integer>deletarRole(@PathVariable Integer id){
 		return service.deletarPessoa(id);
+	}
+	
+	@PostMapping("/cadastrarrole/{id}")
+	public ResponseEntity<String> cadastrarRolePessoa(@RequestBody PessoaRolesDTO roles, @PathVariable Integer id) {
+		
+		return service.inclusaoRolePessoa(roles.getRoles(), id);
+	}
+	
+	@DeleteMapping("/deletar-role-pessoa/{id}")
+	public ResponseEntity<Integer>deletarRolePessoa(@PathVariable Integer id, @RequestBody PessoaRoleExclusaoDTO role){
+		return service.deletarRolePessoa(id, role.getRole());
 	}
 }
