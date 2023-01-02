@@ -20,11 +20,15 @@ public class AutorizacaoPessoa {
 			
 			List<String> roles =  pessoaRoleRepository.buscaRolePessoa(idPessoa) ;
 			
-			if (roles.contains("ROLE_CRIACAO")) {
-				
-			} 
-			
-			
+			if (operacao.equals("CRIACAO")) {
+				if (roles.contains("ROLE_CRIADOR")){
+					return true;
+				} else {
+					return false;
+				}
+			}else {
+				return false;
+			}
 			
 		} catch (Exception e) {
 			
