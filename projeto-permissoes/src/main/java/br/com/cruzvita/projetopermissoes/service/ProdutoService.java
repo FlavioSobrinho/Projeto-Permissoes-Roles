@@ -8,6 +8,7 @@ import javax.management.InstanceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import br.com.cruzvita.projetopermissoes.autorization.AutorizacaoPessoa;
 import br.com.cruzvita.projetopermissoes.dto.ProdutoDTO;
 import br.com.cruzvita.projetopermissoes.enums.Operacoes;
-import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.model.Produto;
 import br.com.cruzvita.projetopermissoes.repository.ProdutoRepository;
 
@@ -29,11 +29,15 @@ public class ProdutoService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Autowired
+	private AutorizacaoPessoa autorizacaoPessoa;
+	
+	@Autowired
 	private AutorizacaoPessoa autorizaPessoa;
+	
 
-	public ResponseEntity<List<ProdutoDTO>> todosProdutos(Integer idPessoa,PessoaRole pessoaRole) {
-		
-		if(autorizaPessoa.autorizaPessoaBuscarTodos(idPessoa, Operacoes.BUSCA, pessoaRole)) {
+	public ResponseEntity<List<ProdutoDTO>> todosProdutos(Integer idPessoa) {
+		if(autorizacaoPessoa.autorizaPessoaBuscarTodos(idPessoa, Operacoes.BUSCA)) {
 			
 			List<Produto> produtos = produtoRepository.findAll();
 			List<ProdutoDTO> prodDTO = produtos
@@ -44,17 +48,17 @@ public class ProdutoService {
 			
 			return new ResponseEntity<>(prodDTO, HttpStatus.ACCEPTED);
 		}else {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<List<ProdutoDTO>>(HttpStatus.UNAUTHORIZED);
 		}
 		
 	}
 	
 	
-	public ResponseEntity<Produto> buscaProdutoPeloNome(String nome, Integer idPessoa){
-		
+	public ResponseEntity<Produto> buscaProdutoPeloNome(String nomeProduto, Integer idPessoa){
 		if (autorizaPessoa.autorizaPessoaBuscarPorNome(idPessoa, Operacoes.BUSCA)) {
-			return new ResponseEntity<>(produtoRepository.
-					findByNome(nome), HttpStatus.ACCEPTED);
+			Produto produto = produtoRepository.findByNome(nomeProduto).orElseThrow();
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(produto);
+					
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
@@ -85,7 +89,6 @@ public class ProdutoService {
 	}
 	
 	public ResponseEntity<String> editarProduto(@RequestBody ProdutoDTO prodDTO, @PathVariable Integer id, Integer idPessoa) throws InstanceNotFoundException{
-		
 		if(autorizaPessoa.autorizaPessoaEditar(idPessoa, Operacoes.ATUALIZA)) {
 			
 			Produto produto = produtoRepository.findById(id).orElseThrow(() -> new InstanceNotFoundException());
@@ -101,10 +104,9 @@ public class ProdutoService {
 	}
 	
 	public ResponseEntity<Integer> deletarProdutoPassandoId(Integer id, Integer idPessoa){
-		
 		if (autorizaPessoa.autorizaPessoaExcluir(idPessoa, Operacoes.DELETA)) {
 			produtoRepository.deleteById(id);
-			return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(id, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}

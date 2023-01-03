@@ -1,26 +1,26 @@
 package br.com.cruzvita.projetopermissoes.autorization;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.cruzvita.projetopermissoes.enums.Operacoes;
-import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.repository.PessoaRoleRepository;
-import br.com.cruzvita.projetopermissoes.service.ProdutoService;
 
+@Component
 public class AutorizacaoPessoa {
 
 	@Autowired
 	private PessoaRoleRepository pessoaRoleRepository;
 	
-	private Operacoes operacoes;
-	
-	private ProdutoService service;
-	
 	//MÉTODOS PARA AUTORIZAR PESSOA PARA MANIPULAR PRODUTOS.
 	
-	public Boolean autorizaPessoaBuscarTodos(Integer idPessoa, Operacoes operacoes, PessoaRole pessoaRole){
-		if(pessoaRole.getRoleId().equals(1)) {
-			service.todosProdutos(idPessoa,pessoaRole);
+	public Boolean autorizaPessoaBuscarTodos(Integer idPessoa, Operacoes operacoes){
+		
+		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
+		
+		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4")) {
 			return true;
 		}else {
 			return false;
@@ -28,21 +28,45 @@ public class AutorizacaoPessoa {
 	}
 	public Boolean autorizaPessoaBuscarPorNome(Integer idPessoa, Operacoes operacoes){
 		
-		return true;
+		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
+		
+		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4")) {
+			
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 	public Boolean autorizaPessoaCadastrar(Integer idPessoa, Operacoes operacoes){
+		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		return true;
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("3")) {
+			return true;
+		}else {
+		
+		return false;
+		}
 	}
 	
 	public Boolean autorizaPessoaEditar(Integer idPessoa, Operacoes operacoes){
+		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		return true;
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("5")) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	public Boolean autorizaPessoaExcluir(Integer idPessoa, Operacoes operacoes){
+		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		return true;
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("6")) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

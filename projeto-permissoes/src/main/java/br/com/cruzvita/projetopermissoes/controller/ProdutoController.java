@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.cruzvita.projetopermissoes.dto.BuscaProdutoNomeDTO;
 import br.com.cruzvita.projetopermissoes.dto.ProdutoDTO;
-import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.model.Produto;
 import br.com.cruzvita.projetopermissoes.service.ProdutoService;
 
@@ -26,24 +26,24 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 	
 	@GetMapping("/todos/{idPessoa}")
-	public ResponseEntity<List<ProdutoDTO>> todosProdutos(@PathVariable Integer idPessoa, PessoaRole pessoaRole){
-		return produtoService.todosProdutos(idPessoa, pessoaRole);
+	public ResponseEntity<List<ProdutoDTO>> todosProdutos(@PathVariable Integer idPessoa){
+		return produtoService.todosProdutos(idPessoa);
 	}
-	@GetMapping("/listar/{nome}")
-	public ResponseEntity<Produto> buscaProdutoPeloNome (@PathVariable String nome, Integer idPessoa){
-		return produtoService.buscaProdutoPeloNome(nome, idPessoa);
+	@GetMapping("/listar/{idPessoa}")
+	public ResponseEntity<Produto> buscaProdutoPeloNome (@RequestBody BuscaProdutoNomeDTO nomeProduto, @PathVariable Integer idPessoa){
+		return produtoService.buscaProdutoPeloNome(nomeProduto.getNome(), idPessoa);
 	}
 	@PostMapping("/cadastrar/{idPessoa}")
 	public ResponseEntity<String> cadastraProduto(@RequestBody ProdutoDTO produto, @PathVariable Integer idPessoa){
 		return produtoService.cadastraProduto(produto, idPessoa);
 	}
 	@PutMapping("/atualizar/{id}/{idPessoa}")
-	public ResponseEntity<String> editarPessoa(@RequestBody ProdutoDTO produto, @PathVariable Integer id, Integer idPessoa)throws Exception {
+	public ResponseEntity<String> editarProduto(@RequestBody ProdutoDTO produto, @PathVariable Integer id, @PathVariable Integer idPessoa)throws Exception {
 		return produtoService.editarProduto(produto, id, idPessoa);
 	}
 	@DeleteMapping("/deleta/{id}/{idPessoa}")
-	public ResponseEntity<Integer> deletarProduto(@PathVariable Integer id){
-		return produtoService.deletarProdutoPassandoId(id, id);
+	public ResponseEntity<Integer> deletarProduto(@PathVariable Integer id, @PathVariable Integer idPessoa){
+		return produtoService.deletarProdutoPassandoId(id, idPessoa);
 	}
 	
 }
