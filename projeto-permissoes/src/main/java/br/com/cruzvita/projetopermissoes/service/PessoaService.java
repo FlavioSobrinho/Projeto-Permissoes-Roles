@@ -17,7 +17,7 @@ import br.com.cruzvita.projetopermissoes.dto.PessoaDTO;
 import br.com.cruzvita.projetopermissoes.model.Pessoa;
 import br.com.cruzvita.projetopermissoes.repository.PessoaRepository;
 
-@Service("userDetailsService")
+@Service
 public class PessoaService {
 	
 	

@@ -18,8 +18,10 @@ import br.com.cruzvita.projetopermissoes.dto.PessoaRolesDTO;
 import br.com.cruzvita.projetopermissoes.dto.RoleDTO;
 import br.com.cruzvita.projetopermissoes.model.Role;
 import br.com.cruzvita.projetopermissoes.service.RoleService;
+import lombok.AllArgsConstructor;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/roles")
 public class RoleController {
 
@@ -55,7 +57,7 @@ public class RoleController {
 	@PostMapping("/cadastrarrole/{id}")
 	public ResponseEntity<String> cadastrarRolePessoa(@RequestBody PessoaRolesDTO roles, @PathVariable Integer id) {
 		
-		return service.inclusaoRolePessoa(roles.getRoles(), id);
+		return service.inclusaoRolePessoa(roles, id);
 	}
 	
 	@DeleteMapping("/deletar-role-pessoa/{id}")

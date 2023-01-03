@@ -1,13 +1,15 @@
 package br.com.cruzvita.projetopermissoes.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-public class PessoaRolesDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RolesDTO {
 
-	List<Integer> roles;
+	private String nomePessoa;
+	
+	private String nomeRole;
 }

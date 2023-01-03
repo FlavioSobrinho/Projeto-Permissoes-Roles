@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cruzvita.projetopermissoes.dto.ProdutoDTO;
+import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.model.Produto;
 import br.com.cruzvita.projetopermissoes.service.ProdutoService;
 
@@ -24,25 +25,25 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 	
-	@GetMapping
-	public ResponseEntity<List<ProdutoDTO>> todosProdutos(){
-		return produtoService.todosProdutos();
+	@GetMapping("/todos/{idPessoa}")
+	public ResponseEntity<List<ProdutoDTO>> todosProdutos(@PathVariable Integer idPessoa, PessoaRole pessoaRole){
+		return produtoService.todosProdutos(idPessoa, pessoaRole);
 	}
 	@GetMapping("/listar/{nome}")
-	public ResponseEntity<Produto> buscaProdutoPeloNome (@PathVariable String nome){
-		return produtoService.buscaProdutoPeloNome(nome);
+	public ResponseEntity<Produto> buscaProdutoPeloNome (@PathVariable String nome, Integer idPessoa){
+		return produtoService.buscaProdutoPeloNome(nome, idPessoa);
 	}
-	@PostMapping("/cadastrar")
-	public ResponseEntity<String> cadastraProduto(@RequestBody ProdutoDTO produto){
-		return produtoService.cadastraProduto(produto);
+	@PostMapping("/cadastrar/{idPessoa}")
+	public ResponseEntity<String> cadastraProduto(@RequestBody ProdutoDTO produto, @PathVariable Integer idPessoa){
+		return produtoService.cadastraProduto(produto, idPessoa);
 	}
-	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<String> editarPessoa(@RequestBody ProdutoDTO produto, @PathVariable Integer id)throws Exception {
-		return produtoService.editarProduto(produto, id);
+	@PutMapping("/atualizar/{id}/{idPessoa}")
+	public ResponseEntity<String> editarPessoa(@RequestBody ProdutoDTO produto, @PathVariable Integer id, Integer idPessoa)throws Exception {
+		return produtoService.editarProduto(produto, id, idPessoa);
 	}
-	@DeleteMapping("/deleta/{id}")
+	@DeleteMapping("/deleta/{id}/{idPessoa}")
 	public ResponseEntity<Integer> deletarProduto(@PathVariable Integer id){
-		return produtoService.deletarProdutoPassandoId(id);
+		return produtoService.deletarProdutoPassandoId(id, id);
 	}
 	
 }

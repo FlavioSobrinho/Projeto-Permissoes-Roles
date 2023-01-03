@@ -1,38 +1,47 @@
 package br.com.cruzvita.projetopermissoes.autorization;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.cruzvita.projetopermissoes.enums.Operacoes;
+import br.com.cruzvita.projetopermissoes.model.PessoaRole;
 import br.com.cruzvita.projetopermissoes.repository.PessoaRoleRepository;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import br.com.cruzvita.projetopermissoes.service.ProdutoService;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AutorizacaoPessoa {
 
+	@Autowired
 	private PessoaRoleRepository pessoaRoleRepository;
 	
-	private Boolean autorizaPessoas(Integer idPessoa, String operacao){
-		
-		try {
-			
-			List<String> roles =  pessoaRoleRepository.buscaRolePessoa(idPessoa) ;
-			
-			if (operacao.equals("CRIACAO")) {
-				if (roles.contains("ROLE_CRIADOR")){
-					return true;
-				} else {
-					return false;
-				}
-			}else {
-				return false;
-			}
-			
-		} catch (Exception e) {
-			
+	private Operacoes operacoes;
+	
+	private ProdutoService service;
+	
+	//MÉTODOS PARA AUTORIZAR PESSOA PARA MANIPULAR PRODUTOS.
+	
+	public Boolean autorizaPessoaBuscarTodos(Integer idPessoa, Operacoes operacoes, PessoaRole pessoaRole){
+		if(pessoaRole.getRoleId().equals(1)) {
+			service.todosProdutos(idPessoa,pessoaRole);
+			return true;
+		}else {
+			return false;
 		}
+	}
+	public Boolean autorizaPessoaBuscarPorNome(Integer idPessoa, Operacoes operacoes){
+		
+		return true;
+	}
+	
+	public Boolean autorizaPessoaCadastrar(Integer idPessoa, Operacoes operacoes){
+		
+		return true;
+	}
+	
+	public Boolean autorizaPessoaEditar(Integer idPessoa, Operacoes operacoes){
+		
+		return true;
+	}
+	
+	public Boolean autorizaPessoaExcluir(Integer idPessoa, Operacoes operacoes){
 		
 		return true;
 	}
