@@ -20,7 +20,7 @@ public class AutorizacaoPessoa {
 		
 		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4")) {
+		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4") && !pessoaRoles.isEmpty()) {
 			return true;
 		}else {
 			return false;
@@ -30,7 +30,7 @@ public class AutorizacaoPessoa {
 		
 		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4")) {
+		if(pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("4") && !pessoaRoles.isEmpty()) {
 			
 			return true;
 		}else {
@@ -42,7 +42,7 @@ public class AutorizacaoPessoa {
 	public Boolean autorizaPessoaCadastrar(Integer idPessoa, Operacoes operacoes){
 		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("3")) {
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("3") && !pessoaRoles.isEmpty()) {
 			return true;
 		}else {
 		
@@ -53,7 +53,7 @@ public class AutorizacaoPessoa {
 	public Boolean autorizaPessoaEditar(Integer idPessoa, Operacoes operacoes){
 		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("5")) {
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("5") && !pessoaRoles.isEmpty()) {
 			return true;
 		}else {
 			return false;
@@ -63,7 +63,7 @@ public class AutorizacaoPessoa {
 	public Boolean autorizaPessoaExcluir(Integer idPessoa, Operacoes operacoes){
 		List<Integer> pessoaRoles = pessoaRoleRepository.buscaIdPessoaIdRole(idPessoa);
 		
-		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("6")) {
+		if (pessoaRoles.toString().contains("1")||pessoaRoles.toString().contains("6") && !pessoaRoles.isEmpty()) {
 			return true;
 		}else {
 			return false;
